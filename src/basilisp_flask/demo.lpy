@@ -1,0 +1,26 @@
+(ns basilisp-flask.demo 
+  (:import flask))
+
+
+(defn hello-world [] 
+  "<p>Hello there beautiful World!<p>")
+
+(defn about []
+  "<p>About me: <p>
+   <p> I am a developer using the excellent Basilisp programming language:)<p>")
+
+(defn app  [] 
+  (let [ap (flask/Flask "Flask test")] 
+    (.add_url_rule ap "/" "hello-world" hello-world) 
+    (.add_url_rule ap "/about" "about" about)
+    (identity ap)
+  ))
+    
+  
+(defn run [] 
+   (.run (app) ** :debug true))
+
+
+;; only start if invoked from the command line.
+(when (= *main-ns* 'basilisp-flask.demo) 
+  (run))
